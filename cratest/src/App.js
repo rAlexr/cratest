@@ -1,38 +1,18 @@
+import {useState} from 'react';
+import data from "./data.json";
 
 function App() {
+  const [ filt, setFilt ] = useState(""); 
 
-  const data = [
-    {
-      nume: 'Alex',
-      prenume: 'Mircea',
-      age: 21,
-    },
-    {
-      nume: 'Sonia',
-      prenume: 'Sanja',
-      age: 33,
-    },
-    {
-      nume: 'Manson',
-      prenume: 'George',
-      age: 12,
-    },
-    {
-      nume: 'Dorin',
-      prenume: 'Zinga',
-      age: 41,
-    }
-  ];
-
-  const handleFilter = (e) => {
-
-    const filtered = data.filter((item) => item.nume === e.target.value)
-    console.log(filtered)
-  }
+  console.log(filt);
+  data.filter((item) => item.company.toLowerCase().includes(filt))
 
   return (
     <div>
-      <input type= 'text' placeholder='pula' onChange={handleFilter}/>
+      <input type="text" placeholder="pula" onChange={(e) => setFilt(e.target.value) }/>
+      {
+        data.filter((item) => item.name.includes(filt)).map((item) => (<p key={item._id}>{item.name}</p>))
+      }
     </div>
   );
 }
